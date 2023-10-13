@@ -1,0 +1,9 @@
+{
+    "name": "itoshun/git-submodule-demo",
+    "autoload": {
+        "classmap": [".tmp/"]
+    },
+    "require-dev": {
+        "phpstan/phpstan": "^1.10"
+    }
+}
