@@ -1,6 +1,6 @@
 <?php
 
-namespace Customtest\InterfaceAdapters\Controllers\Web ;
+namespace Customtest\App\Http\Controllers\Web ;
 
 use framework\Http\Request;
 use framework\Http\Controller;

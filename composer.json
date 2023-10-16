@@ -1,7 +1,7 @@
 {
     "name": "itoshun/git-submodule-demo",
     "autoload": {
-        "classmap": [".tmp/"]
+        "classmap": ["src","spiral-framework/src"]
     },
     "require-dev": {
         "phpstan/phpstan": "^1.10"

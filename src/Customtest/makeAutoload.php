@@ -20,7 +20,7 @@ function topological_sort_visit($node, $graph, &$visited, &$result) {
     }
 }
 
-$classToFileMap  = require_once '../../../vendor/composer/autoload_classmap.php';
+$classToFileMap  = require_once '../../vendor/composer/autoload_classmap.php';
 $classToFileMap = array_filter($classToFileMap, function($path) {
     return strpos($path, getcwd()) !== false;
 });
@@ -34,7 +34,7 @@ foreach ($regex as $file) {
     if (strpos($file[0], './resources') === 0) {
         continue;
     }
-    if (strpos($file[0], './StartUp') === 0) {
+    if (strpos($file[0], './routes') === 0) {
         continue;
     }
     if($file[0] === './makeAutoload.php'){        
