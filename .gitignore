@@ -2,7 +2,7 @@
 .tmp/
 .vs/
 .env.php
-.tmp/
+.build/
 .vscode/
 node_modules/
 .node_modules/

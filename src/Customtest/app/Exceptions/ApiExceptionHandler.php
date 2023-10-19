@@ -6,7 +6,7 @@ use Exception;
 use framework\Exception\ExceptionHandler as BaseExceptionHandler;
 use framework\Http\View;
 
-class ExceptionHandler extends BaseExceptionHandler
+class ApiExceptionHandler extends BaseExceptionHandler
 {
     public $debug = false;
 
@@ -14,7 +14,11 @@ class ExceptionHandler extends BaseExceptionHandler
     {
         $code = $exception->getCode();
         $message = $exception->getMessage();
-        $title = "Error";
-        echo view("error", compact("code", "message", "title"))->render();
+        if($message){
+            echo response()->json([] , $code , $message , '')->send();
+            return;
+        }
+        echo response()->json([] , 404 , 'Not Found.' , '')->send();
+        return;
     }
 }
