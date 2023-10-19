@@ -28,8 +28,7 @@ $router = new Router();
 //$router->middleware();毎回必ずチェックする場合はこっち
 $app = new Customtest\CustomtestApplication();
 $exceptionHandler = new Customtest\Exceptions\ExceptionHandler();
-$kernel = new \framework\Http\Kernel($app, $router ,$exceptionHandler);
+$kernel = new \framework\Http\Kernel($app, $router, $exceptionHandler);
 $request = new \framework\Http\Request();
 
 $kernel->handle($request);
-

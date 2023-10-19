@@ -1,7 +1,8 @@
 
 <?php
 
-function topological_sort($graph) {
+function topological_sort($graph)
+{
     $result = [];
     $visited = [];
     foreach ($graph as $node => $edges) {
@@ -10,7 +11,8 @@ function topological_sort($graph) {
     return array_reverse($result);
 }
 
-function topological_sort_visit($node, $graph, &$visited, &$result) {
+function topological_sort_visit($node, $graph, &$visited, &$result): void
+{
     if (!isset($visited[$node])) {
         $visited[$node] = true;
         foreach ($graph[$node] as $edge) {
@@ -20,8 +22,8 @@ function topological_sort_visit($node, $graph, &$visited, &$result) {
     }
 }
 
-$classToFileMap  = require_once '../../vendor/composer/autoload_classmap.php';
-$classToFileMap = array_filter($classToFileMap, function($path) {
+$classToFileMap = require_once '../../vendor/composer/autoload_classmap.php';
+$classToFileMap = array_filter($classToFileMap, function ($path) {
     return strpos($path, getcwd()) !== false;
 });
 $directory = new RecursiveDirectoryIterator('./');
@@ -37,10 +39,10 @@ foreach ($regex as $file) {
     if (strpos($file[0], './routes') === 0) {
         continue;
     }
-    if($file[0] === './makeAutoload.php'){        
+    if($file[0] === './makeAutoload.php') {
         continue;
     }
-    if($file[0] === './autoload_static.php'){
+    if($file[0] === './autoload_static.php') {
         continue;
     }
     $fileContent = file_get_contents($file[0]);
@@ -65,7 +67,8 @@ foreach ($regex as $file) {
     }
 }
 
-function resolveDependencies($file, $dependencies, &$resolved, &$seen) {
+function resolveDependencies($file, $dependencies, &$resolved, &$seen): void
+{
     $seen[$file] = true;
     foreach ($dependencies[$file] as $dependency) {
         if (!isset($resolved[$dependency]) && isset($dependencies[$dependency])) {
@@ -89,21 +92,21 @@ foreach ($dependencies as $relativeFile  => $classes) {
     $file = realpath($relativeFile);
     //$class = array_search($file, $classToFileMap);
     //if ($class !== false) {
-        $newDependencies[$file] = [];
-        foreach ($classes as $depClass) {
-            if (array_key_exists($depClass, $classToFileMap)) {
-                $newDependencies[$file][] = $classToFileMap[$depClass];
-            }
+    $newDependencies[$file] = [];
+    foreach ($classes as $depClass) {
+        if (array_key_exists($depClass, $classToFileMap)) {
+            $newDependencies[$file][] = $classToFileMap[$depClass];
         }
+    }
     //}
 }
 $baseDir = getcwd();
 $currentDirName = basename(getcwd());  // 現在のディレクトリ名を取得
 $autoloadFileContent = "<?php \r\n";
-foreach(array_reverse(topological_sort($newDependencies)) as $file){
+foreach(array_reverse(topological_sort($newDependencies)) as $file) {
     $relativePath = $currentDirName . '/' . str_replace($baseDir, '', $file);  // ディレクトリ名を付与
     $relativePath = str_replace('//', '/', $relativePath);
-    $autoloadFileContent .= "require_once '$relativePath';\r\n";
+    $autoloadFileContent .= "require_once '{$relativePath}';\r\n";
 }
 
 file_put_contents('autoload_static.php', $autoloadFileContent);

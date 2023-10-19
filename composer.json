@@ -4,6 +4,14 @@
         "classmap": ["src","spiral-framework/src"]
     },
     "require-dev": {
-        "phpstan/phpstan": "^1.10"
+        "phpstan/phpstan": "^1.10",
+        "nunomaduro/phpinsights": "^2.8",
+        "friendsofphp/php-cs-fixer": "^3.35"
+    },
+    "config": {
+        "allow-plugins": {
+            "symfony/flex": true,
+            "dealerdirect/phpcodesniffer-composer-installer": true
+        }
     }
 }
