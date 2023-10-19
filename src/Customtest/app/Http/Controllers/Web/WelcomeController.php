@@ -1,18 +1,14 @@
 <?php
 
-namespace Customtest\App\Http\Controllers\Web ;
+namespace Customtest\App\Http\Controllers\Web;
 
 use framework\Http\Request;
 use framework\Http\Controller;
 use framework\Http\View;
+use framework\Support\ServiceProvider;
 
 class WelcomeController extends Controller
 {
-    public function __construct(Request $request)
-    {
-        parent::__construct($request);
-    }
-
     public function index(array $vars)
     {
         echo view("html/welcome")->render();

@@ -3,8 +3,8 @@
 require_once "framework/autoload_static.php";
 require_once "Customtest/autoload_static.php";
 
+use Customtest\App\Http\Controllers\Web\WelcomeController;
 use framework\Routing\Router;
-use Customtest\InterfaceAdapters\Controllers\Web\WelcomeController;
 
 /** */
 
@@ -16,7 +16,7 @@ const VIEW_FILE_ROOT = "Customtest/resources";
 
 /** sample */
 
-Router::map("GET", "/", [WelcomeController:: class , "index"]);
+Router::map("GET", "/", [WelcomeController::class , "index"]);
 
 //Router::map("GET", "/:userId", [HogeHogeController:: class , "show"]);
 //Router::map("POST", "/user", [HogeHogeController:: class , "create"]);
