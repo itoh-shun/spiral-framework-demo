@@ -1,5 +1,6 @@
 .vscode
-.tmp/
+.*/
+.*.php
 .vs/
 .env.php
 .build/
