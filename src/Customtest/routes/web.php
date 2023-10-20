@@ -4,7 +4,9 @@ $pathPrefix = defined('BASE_PATH') ? BASE_PATH : "";
 require_once $pathPrefix . "framework/autoload_static.php";
 require_once "Customtest/autoload_static.php";
 
+use Customtest\App\Http\Controllers\Web\ArticleController;
 use Customtest\App\Http\Controllers\Web\WelcomeController;
+use framework\Http\Middleware\VerifyCsrfTokenMiddleware;
 use framework\Routing\Router;
 
 /** */
@@ -17,7 +19,11 @@ const VIEW_FILE_ROOT = "Customtest/resources";
 
 /** sample */
 
-Router::map("GET", "/", [WelcomeController::class , "index"]);
+Router::map("GET", "/", [ArticleController::class , "index"])->name('articles.index');
+Router::map("GET", "/create", [ArticleController::class , "create"])->name('articles.create');
+Router::middlewares(VerifyCsrfTokenMiddleware::class, function (){
+    Router::map("POST", "/create", [ArticleController::class , "store"])->name('articles.store');
+});
 
 //Router::map("GET", "/:userId", [HogeHogeController:: class , "show"]);
 //Router::map("POST", "/user", [HogeHogeController:: class , "create"]);

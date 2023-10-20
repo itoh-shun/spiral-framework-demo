@@ -3,6 +3,8 @@
 namespace Customtest;
 
 use framework\Application;
+use framework\SpiralConnecter\SpiralDB;
+use SiValidator2\SiValidator2;
 
 class CustomtestApplication extends Application
 {
@@ -14,5 +16,7 @@ class CustomtestApplication extends Application
 
     public function boot()
     {
+        SiValidator2::setLanguage(config('locale','ja'));
+        //SpiralDB::setToken();
     }
 }

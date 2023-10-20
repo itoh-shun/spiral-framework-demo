@@ -5,7 +5,9 @@ namespace Customtest\App\Http\Controllers\Web;
 use framework\Http\Request;
 use framework\Http\Controller;
 use framework\Http\View;
+use framework\SpiralConnecter\SpiralDB;
 use framework\Support\ServiceProvider;
+use Spiral;
 
 class WelcomeController extends Controller
 {
@@ -16,7 +18,9 @@ class WelcomeController extends Controller
 
     public function create(array $vars)
     {
-        //
+        $SPIRAL = new Spiral();
+
+        SpiralDB::title('member')->get();
     }
 
     public function store(array $vars)
