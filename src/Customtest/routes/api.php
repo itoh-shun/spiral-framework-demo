@@ -1,6 +1,7 @@
 
 <?php
-require_once "framework/autoload_static.php";
+$pathPrefix = defined('BASE_PATH') ? BASE_PATH : "";
+require_once $pathPrefix . "framework/autoload_static.php";
 require_once "Customtest/autoload_static.php";
 
 use framework\Routing\Router;

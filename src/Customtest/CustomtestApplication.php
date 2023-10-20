@@ -10,7 +10,7 @@ class CustomtestApplication extends Application
     {
         config_path("Customtest/config/app");
         parent::__construct();
-    }
+    } 
 
     public function boot()
     {
