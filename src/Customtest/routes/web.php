@@ -24,6 +24,10 @@ Router::map("GET", "/", [ArticleController::class , "index"])->name('articles.in
 Router::map("GET", "/create", [ArticleController::class , "create"])->name('articles.create');
 Router::map("POST", "/create", [ArticleController::class , "store"])->name('articles.store');
 
+
+Router::map("GET", "/article/:id", [ArticleController::class , "edit"])->name('articles.edit');
+Router::map("POST", "/article/:id", [ArticleController::class , "update"])->name('articles.update');
+
 //Router::map("GET", "/:userId", [HogeHogeController:: class , "show"]);
 //Router::map("POST", "/user", [HogeHogeController:: class , "create"]);
 //Router::map("PATCH", "/:userId", [HogeHogeController:: class , "update"]);
