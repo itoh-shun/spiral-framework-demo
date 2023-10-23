@@ -5,4 +5,7 @@ return [
     "name" => "Customtest",
     "timezone" => "Asia/Tokyo",
     "locale" => "ja",
+    "url" => [
+        'root' => defined('IS_LOCAL') ? '' : 'https://www.pi-pe.co.jp/regist/is?SMPFORM=lilj-mbpcni-c02387cf16ffebc62402011f10b42f44',
+    ]
 ];

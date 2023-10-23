@@ -8,10 +8,12 @@
             {{ $message }}
         </div>
     @endif
-    <form method="post" action>
+    <form method="post" action="{{ config('url.root') }}">
+        <input type="hidden" value="get" name="_method">
         <input type="hidden" value="{{ route('articles.create') }}" name="_path">
         <button type="submit" class="btn btn-primary">新規登録</button>
     </form>
+    {!! $limits !!}
     <table class="table">
         <thead>
             <tr>
@@ -28,5 +30,6 @@
             @endforeach
         </tbody>
     </table>
+    {!! $pagination !!}
 </div>
 @endsection

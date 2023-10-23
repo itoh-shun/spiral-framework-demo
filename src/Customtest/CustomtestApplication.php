@@ -17,6 +17,5 @@ class CustomtestApplication extends Application
     public function boot()
     {
         SiValidator2::setLanguage(config('locale','ja'));
-        //SpiralDB::setToken();
     }
 }

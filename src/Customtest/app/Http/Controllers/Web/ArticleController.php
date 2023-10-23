@@ -3,17 +3,23 @@
 namespace Customtest\App\Http\Controllers\Web;
 
 use App\Model\Article;
+use Csrf;
 use framework\Http\Controller;
 use framework\Routing\Router;
+use framework\SpiralConnecter\RateLimiter;
 use SiValidator2\SiValidator2;
 
 class ArticleController extends Controller
 {
     public function index(array $vars)
     {
-        $articles = (new Article)->pagination(1);
+        $limit = (int)$this->request->get('limit', 10);
+        $page = (int)$this->request->get('page', 1);
+        $articles = (new Article)->pagination($page , $limit);
         echo view('html.articles.index', [
+            'limits' => $articles->limits(),
             'articles' => $articles->getData(),
+            'pagination' => $articles->links(),
             'message' => $this->request->session()->pull('message')
         ]);
     }
@@ -33,6 +39,12 @@ class ArticleController extends Controller
 
     public function store($vars)
     {
+        //CSRFが一致しなければリダイレクト
+        if(Csrf::validate($this->request->get('_csrf')) === false){
+            Router::redirect(route('articles.index', $vars) , $this->request);
+            exit;
+        }
+
         $values = [
             'title' => $this->request->get('title'),
             'content' => $this->request->get('content'),
@@ -65,6 +77,9 @@ class ArticleController extends Controller
             $this->request->setMethod('get');
             $this->request->session()->put('isError', false);
             $this->request->session()->put('message', '登録が完了しました');
+
+            Csrf::regenerate(); // リロード対策
+
             Router::redirect(route('articles.index', $vars) , $this->request);
         }
         exit;
