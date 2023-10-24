@@ -11,6 +11,7 @@ class Article extends SpiralModel {
     protected string $primaryKey = 'sysId';
 
     public function pagination($page = 1 , $limit = 10) {
+        /** @phpstan-ignore-next-line */
         $instance = new static();
         return $instance->getManager()->page($page)->paginate($limit);
     }

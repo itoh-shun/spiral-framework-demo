@@ -18,8 +18,6 @@ class WelcomeController extends Controller
 
     public function create(array $vars)
     {
-        $SPIRAL = new Spiral();
-
         SpiralDB::title('member')->get();
     }
 
