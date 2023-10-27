@@ -42,7 +42,9 @@ class ArticleController extends Controller
     {
         //CSRFが一致しなければリダイレクト
         if(Csrf::validate($this->request->get('_csrf')) === false){
-            Router::redirect(route('articles.index', $vars) , $this->request);
+            $this->request->session()->put('isError', true);
+            $this->request->session()->put('message' , 'CSRFトークンの有効期限が切れました。');
+            Router::metaRedirect(route('articles.create', $vars) , $this->request , ['SMPFORM']);
             exit;
         }
 
@@ -68,7 +70,7 @@ class ArticleController extends Controller
             $this->request->session()->put('isError', true);
             $this->request->session()->put('message', 'エラーが発生しました');
             $this->request->session()->put('validate', $validator->getResults());
-            Router::redirect(route('articles.create', $vars) , $this->request);
+            Router::metaRedirect(route('articles.create', $vars) , $this->request , ['SMPFORM']);
         } else {
             $article = new Article;
             $article->title = $this->request->get('title');
@@ -81,7 +83,7 @@ class ArticleController extends Controller
 
             Csrf::regenerate(); // リロード対策
 
-            Router::redirect(route('articles.index', $vars) , $this->request);
+            Router::metaRedirect(route('articles.index', $vars) , $this->request , ['SMPFORM']);
         }
         exit;
     }
@@ -119,7 +121,7 @@ class ArticleController extends Controller
 
         //CSRFが一致しなければリダイレクト
         if(Csrf::validate($this->request->get('_csrf')) === false){
-            Router::redirect(route('articles.edit', $vars) , $this->request);
+            Router::metaRedirect(route('articles.edit', $vars) , $this->request , ['SMPFORM']);
             exit;
         }
 
@@ -145,7 +147,7 @@ class ArticleController extends Controller
             $this->request->session()->put('isError', true);
             $this->request->session()->put('message', 'エラーが発生しました');
             $this->request->session()->put('validate', $validator->getResults());
-            Router::redirect(route('articles.edit', $vars) , $this->request);
+            Router::metaRedirect(route('articles.edit', $vars) , $this->request , ['SMPFORM']);
         } else {
             $article = new Article;
             $article->sysId = $old_article->sysId;
@@ -159,9 +161,8 @@ class ArticleController extends Controller
 
             Csrf::regenerate(); // リロード対策
 
-            Router::redirect(route('articles.index', $vars) , $this->request);
+            Router::metaRedirect(route('articles.index', $vars) , $this->request , ['SMPFORM']);
         }
         exit;
     }
-
 }

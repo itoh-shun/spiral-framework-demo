@@ -1,5 +1,6 @@
 <?php
 use framework\Batch\BatchJob;
+use framework\SpiralConnecter\SpiralDB;
 $pathPrefix = defined("BASE_PATH") ? BASE_PATH : "";
 require_once $pathPrefix . "framework/autoload_static.php";
 require_once "Customtest/autoload_static.php";
@@ -13,7 +14,10 @@ $batchScheduler = new BatchScheduler();
 
 $batchScheduler->addJob((new class extends BatchJob {
     public function handle(){
-        echo "Hi!!!";
+
+        SpiralDB::title('NewDB')->update([
+            'status' => 3
+        ]);
     }
 })->everyMinute());
 
